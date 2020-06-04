@@ -5,7 +5,18 @@ class Counter extends React.Component {
   constructor(props) {
     super(props)
     this.state= {
-      count: props.count
+      count: 0
+    }
+  }
+
+  componentDidMount() {
+    const json = parseInt(localStorage.getItem('count'))
+    this.setState(() => ({ count : json }))
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.count !== this.state.count) {
+        localStorage.setItem('count', this.state.count)
     }
   }
 
@@ -45,8 +56,8 @@ class Counter extends React.Component {
   }
 }
 
-Counter.defaultProps = {
-    count : 0
-}
+// Counter.defaultProps = {
+//     count : 0
+// }
 
 export default Counter
